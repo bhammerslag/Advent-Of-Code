@@ -1,0 +1,6 @@
+In[53]:= SetDirectory["~/Documents/GitHub/Advent-Of-Code/2022"];
+In[63]:= rawCals = Import["input1.txt", "Data"];
+In[72]:= Max[Total/@SequenceSplit[ToExpression[rawCals], {Null}]]
+Out[72]= 70698
+In[74]:= Total[Sort[Total/@SequenceSplit[ToExpression[rawCals], {Null}]][[-3;;]]]
+Out[74]= 206643
