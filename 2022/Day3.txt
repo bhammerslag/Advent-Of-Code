@@ -1,0 +1,28 @@
+Part 1
+In[5]:= priorities = Flatten[{CharacterRange["a", "z"], CharacterRange["A", "Z"]}]
+Out[5]= {a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}
+In[13]:= sacks = Flatten[Import["input3.txt", "Data"]];
+sacks[[;;3]]
+Out[14]= {DsPhSBQQQhqmBDhPDsFwjwsLjlRjlttvjvvtRb,rNJMNNbrHrtjHLHjvwtg,fNbNzZdrZnMnMPnQShFPDmnqFm}
+In[38]:= procSack[i_String]:=Block[{},
+items = Characters[i];
+parts = Partition[items,Length[items]/2];
+mismatch = Intersection[parts[[1]], parts[[2]]];
+Total[Flatten[Position[priorities, #]&/@mismatch]]
+]
+In[39]:= procSack[sacks[[1]]]
+Out[39]= 19
+In[40]:= Total[procSack/@sacks]
+Out[40]= 8176
+Part 2
+In[45]:= badgeGroups = Partition[sacks,3];
+In[77]:= procGroup[g_List]:=
+Block[{},
+badgechar=Keys[Sort[Counts@Flatten[DeleteDuplicates/@Characters/@g]]][[-1]];
+First@Flatten[Position[priorities, badgechar]]
+]
+
+In[78]:= procGroup[badgeGroups[[1]]]
+Out[78]= 2
+In[80]:= Total[procGroup/@badgeGroups]
+Out[80]= 2689
