@@ -1,0 +1,29 @@
+Part 1
+In[81]:= ?SubsetQ
+Out[81]=  Symbol	
+SubsetQ[Subscript[list, 1],Subscript[list, 2]] yields True if Subscript[list, 2] is a subset of Subscript[list, 1], and False otherwise.	
+	\[SpanFromLeft]
+
+
+In[85]:= ranges=Import["input4.txt", "Data"];
+ranges[[;;3]]
+Out[86]= {{23-33,24-65},{10-24,23-88},{71-92,18-71}}
+In[116]:= procPair[i_List]:=
+Block[{},
+exp=Range[#[[1]],#[[2]]]&/@ToExpression[(StringSplit[#,"-"]&/@i)];
+SubsetQ[exp[[1]], exp[[2]]]||  SubsetQ[exp[[2]], exp[[1]]]
+]
+In[117]:= procPair[ranges[[1]]]
+Out[117]= False
+In[118]:= Counts[procPair/@ ranges]
+Out[118]= <|False->405,True->595|>
+Part 2
+In[121]:= procPair2[i_List]:=
+Block[{},
+exp=Range[#[[1]],#[[2]]]&/@ToExpression[(StringSplit[#,"-"]&/@i)];
+GreaterEqual[Length@Intersection[exp[[1]], exp[[2]]], 1]
+]
+In[122]:= procPair2[ranges[[1]]]
+Out[122]= True
+In[123]:= Counts[procPair2/@ ranges]
+Out[123]= <|True->952,False->48|>
